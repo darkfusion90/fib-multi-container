@@ -9,7 +9,7 @@ jobs:
       - setup_remote_docker:
           version: '20.10.11'
       - run:
-          command: docker build -t gauravsharma/client-test -f ./client-typescript/Dockerfile.dev
+          command: docker build -t gauravsharma/client-test ./client-typescript/Dockerfile.dev
           name: building the client for testing
       - run:
           command: docker run gauravsharma/client-test npm test
