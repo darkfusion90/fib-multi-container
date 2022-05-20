@@ -23,16 +23,16 @@ jobs:
       - setup_remote_docker:
           version: '20.10.11'
       - run:
-          command: docker build -t gauravsharma/fibo-multi-client -f ./client-typescript
+          command: docker build -t gauravsharma/fibo-multi-client ./client-typescript
           name: building the production docker image for client
       - run:
-          command: docker build -t gauravsharma/fibo-multi-worker -f ./worker
+          command: docker build -t gauravsharma/fibo-multi-worker ./worker
           name: building the production docker image for worker
       - run:
-          command: docker build -t gauravsharma/fibo-multi-server -f ./server
+          command: docker build -t gauravsharma/fibo-multi-server ./server
           name: building the production docker image for server
       - run:
-          command: docker build -t gauravsharma/fibo-multi-nginx -f ./nginx
+          command: docker build -t gauravsharma/fibo-multi-nginx ./nginx
           name: building the production docker image for nginx
       - run:
           command: |
