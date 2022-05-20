@@ -35,6 +35,10 @@ jobs:
           command: docker build -t gauravsharma/fibo-multi-nginx ./nginx
           name: building the production docker image for nginx
       - run:
+          command: echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+          name: login to docker hub
+
+      - run:
           command: |
             docker push gauravsharma/fibo-multi-client
             docker push gauravsharma/fibo-multi-worker
