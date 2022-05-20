@@ -9,10 +9,10 @@ jobs:
       - setup_remote_docker:
           version: '20.10.11'
       - run:
-          command: docker build -t gauravsharma/client-test -f ./client-typescript/Dockerfile.dev ./client-typescript/
+          command: docker build -t gauravswf/client-test -f ./client-typescript/Dockerfile.dev ./client-typescript/
           name: building the client for testing
       - run:
-          command: docker run gauravsharma/client-test npm test
+          command: docker run gauravswf/client-test npm test
           name: run the client tests
 
   build_and_push_images:
@@ -23,16 +23,16 @@ jobs:
       - setup_remote_docker:
           version: '20.10.11'
       - run:
-          command: docker build -t gauravsharma/fibo-multi-client ./client-typescript
+          command: docker build -t gauravswf/fibo-multi-client ./client-typescript
           name: building the production docker image for client
       - run:
-          command: docker build -t gauravsharma/fibo-multi-worker ./worker
+          command: docker build -t gauravswf/fibo-multi-worker ./worker
           name: building the production docker image for worker
       - run:
-          command: docker build -t gauravsharma/fibo-multi-server ./server
+          command: docker build -t gauravswf/fibo-multi-server ./server
           name: building the production docker image for server
       - run:
-          command: docker build -t gauravsharma/fibo-multi-nginx ./nginx
+          command: docker build -t gauravswf/fibo-multi-nginx ./nginx
           name: building the production docker image for nginx
       - run:
           command: echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
@@ -40,10 +40,10 @@ jobs:
 
       - run:
           command: |
-            docker push gauravsharma/fibo-multi-client
-            docker push gauravsharma/fibo-multi-worker
-            docker push gauravsharma/fibo-multi-server
-            docker push gauravsharma/fibo-multi-nginx
+            docker push gauravswf/fibo-multi-client
+            docker push gauravswf/fibo-multi-worker
+            docker push gauravswf/fibo-multi-server
+            docker push gauravswf/fibo-multi-nginx
 
 workflows:
   version: 2
