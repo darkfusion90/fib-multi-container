@@ -15,8 +15,35 @@ jobs:
           command: docker run gauravsharma/client-test npm test
           name: run the client tests
 
+  build_and_push_images:
+    docker:
+      - image: cimg/base:2022.03
+    steps:
+      - checkout
+      - setup_remote_docker:
+          version: '20.10.11'
+      - run:
+        command: docker build -t gauravsharma/fibo-multi-client -f ./client-typescript
+        name: building the production docker image for client
+      - run:
+        command: docker build -t gauravsharma/fibo-multi-worker -f ./worker
+        name: building the production docker image for worker
+      - run:
+        command: docker build -t gauravsharma/fibo-multi-server -f ./server
+        name: building the production docker image for server
+      - run:
+        command: docker build -t gauravsharma/fibo-multi-nginx -f ./nginx
+        name: building the production docker image for nginx
+      - run:
+        command: |
+          docker push gauravsharma/fibo-multi-client
+          docker push gauravsharma/fibo-multi-worker
+          docker push gauravsharma/fibo-multi-server
+          docker push gauravsharma/fibo-multi-nginx
+
 workflows:
   version: 2
   testing:
     jobs:
       - client_testing
+      - build_and_push_images
